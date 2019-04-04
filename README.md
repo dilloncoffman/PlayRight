@@ -6,4 +6,4 @@ PlayRight is a guitar tab app that allows users to create and share tabs of thei
 * Clone this repo locally
 * `cd 'PlayRight'`
 * `expo start` or `npm start` to get things running
-* It's helpful if you have the Expo app on your phone, but you can choose to run it on an iOS or Android simulator
+* It's helpful if you have the Expo app on your phone or you can choose to run it on an iOS/Android simulator - although you'll probably have to install Xcode/Android Studio
