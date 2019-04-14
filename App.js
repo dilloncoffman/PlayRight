@@ -5,10 +5,12 @@ import {
   createStackNavigator,
   createAppContainer,
 } from 'react-navigation';
+// import AnnotateScreen from './screens/Annotate';
 import HomeScreen from './screens/Home';
 import CreateScreen from './screens/Create';
-import AnnotateScreen from './screens/Annotate';
 import UserProfileScreen from './screens/UserProfile';
+import TabScreen from './screens/Tab';
+import ArtistProfileScreen from './screens/ArtistProfile';
 
 /* Stack navigators for each screen */
 
@@ -18,6 +20,48 @@ const HomeStack = createStackNavigator({
     navigationOptions: ({ navigation }) => ({
       headerLeft: null, // disables back button to screen - might be problem later
       gesturesEnabled: false, // disables user swiping back to previous screen
+      headerTitleStyle: {
+        color: '#fff',
+      },
+      headerStyle: {
+        backgroundColor: '#1C202C',
+        borderBottomWidth: 0, // gets rid of hairline border bottom on header
+      },
+      headerBackTitle: null, // removes truncated 'Back' text from header when on Tab screen
+    }),
+  },
+  Tab: {
+    screen: TabScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerTitleStyle: {
+        color: '#fff',
+      },
+      headerStyle: {
+        backgroundColor: '#1C202C',
+        borderBottomWidth: 0, // gets rid of hairline border bottom on header
+      },
+      headerTintColor: '#fff', // color of back arrow
+      headerLeftContainerStyle: {
+        // style for back button container
+        paddingLeft: 10,
+      },
+    }),
+  },
+  ArtistProfile: {
+    screen: ArtistProfileScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerTitleStyle: {
+        color: '#fff',
+      },
+      headerStyle: {
+        backgroundColor: '#1C202C',
+        borderBottomWidth: 0, // gets rid of hairline border bottom on header
+      },
+      headerTintColor: '#fff', // color of back arrow
+      headerLeftContainerStyle: {
+        // style for back button container
+        paddingLeft: 10,
+      },
     }),
   },
 });
@@ -28,19 +72,26 @@ const CreateStack = createStackNavigator({
     navigationOptions: ({ navigation }) => ({
       headerLeft: null,
       gesturesEnabled: false,
+      headerTitleStyle: {
+        color: '#fff',
+      },
+      headerStyle: {
+        backgroundColor: '#1C202C',
+        borderBottomWidth: 0, // gets rid of hairline border bottom on header
+      },
     }),
   },
 });
 
-const AnnotateStack = createStackNavigator({
-  Annotate: {
-    screen: AnnotateScreen,
-    navigationOptions: ({ navigation }) => ({
-      headerLeft: null,
-      gesturesEnabled: false,
-    }),
-  },
-});
+// const AnnotateStack = createStackNavigator({
+//   Annotate: {
+//     screen: AnnotateScreen,
+//     navigationOptions: ({ navigation }) => ({
+//       headerLeft: null,
+//       gesturesEnabled: false,
+//     }),
+//   },
+// });
 
 const UserProfileStack = createStackNavigator({
   UserProfile: {
@@ -48,6 +99,13 @@ const UserProfileStack = createStackNavigator({
     navigationOptions: ({ navigation }) => ({
       headerLeft: null,
       gesturesEnabled: false,
+      headerTitleStyle: {
+        color: '#fff',
+      },
+      headerStyle: {
+        backgroundColor: '#1C202C',
+        borderBottomWidth: 0, // gets rid of hairline border bottom on header
+      },
     }),
   },
 });
@@ -58,14 +116,16 @@ HomeStack.navigationOptions = ({ navigation }) => {
   const { routeName } = navigation.state.routes[navigation.state.index];
   const navigationOptions = {};
 
+  navigationOptions.tabBarColor = '#FAFAFA';
+
   if (routeName === 'Home') {
     navigationOptions.tabBarIcon = ({ focused }) => (
-      <MaterialCommunityIcons name="home" size={25} color="black" />
+      <MaterialCommunityIcons name="home-outline" size={25} color="white" />
     );
   } else {
     // placeholder for now to ensure when going to other screens that home icon doesn't disappear
     navigationOptions.tabBarIcon = ({ focused }) => (
-      <MaterialCommunityIcons name="home" size={25} color="black" />
+      <MaterialCommunityIcons name="home-outline" size={25} color="white" />
     );
   }
 
@@ -79,35 +139,43 @@ CreateStack.navigationOptions = ({ navigation }) => {
 
   if (routeName === 'Create') {
     navigationOptions.tabBarIcon = ({ focused }) => (
-      <MaterialCommunityIcons name="file" size={25} color="black" />
+      <MaterialCommunityIcons
+        name="plus-circle-outline"
+        size={25}
+        color="white"
+      />
     );
   } else {
-    // placeholder for now to ensure when going to other screens that file icon doesn't disappear
+    // placeholder for now to ensure when going to other screens that plus icon doesn't disappear
     navigationOptions.tabBarIcon = ({ focused }) => (
-      <MaterialCommunityIcons name="file" size={25} color="black" />
+      <MaterialCommunityIcons
+        name="plus-circle-outline"
+        size={25}
+        color="white"
+      />
     );
   }
 
   return navigationOptions;
 };
 
-AnnotateStack.navigationOptions = ({ navigation }) => {
-  const { routeName } = navigation.state.routes[navigation.state.index];
-  const navigationOptions = {};
+// AnnotateStack.navigationOptions = ({ navigation }) => {
+//   const { routeName } = navigation.state.routes[navigation.state.index];
+//   const navigationOptions = {};
 
-  if (routeName === 'Annotate') {
-    navigationOptions.tabBarIcon = ({ focused }) => (
-      <MaterialCommunityIcons name="pencil" size={25} color="black" />
-    );
-  } else {
-    // placeholder for now to ensure when going to other screens that pencil icon doesn't disappear
-    navigationOptions.tabBarIcon = ({ focused }) => (
-      <MaterialCommunityIcons name="pencil" size={25} color="black" />
-    );
-  }
+//   if (routeName === 'Annotate') {
+//     navigationOptions.tabBarIcon = ({ focused }) => (
+//       <MaterialCommunityIcons name="pencil" size={25} color="black" />
+//     );
+//   } else {
+//     // placeholder for now to ensure when going to other screens that pencil icon doesn't disappear
+//     navigationOptions.tabBarIcon = ({ focused }) => (
+//       <MaterialCommunityIcons name="pencil" size={25} color="black" />
+//     );
+//   }
 
-  return navigationOptions;
-};
+//   return navigationOptions;
+// };
 
 UserProfileStack.navigationOptions = ({ navigation }) => {
   const { routeName } = navigation.state.routes[navigation.state.index];
@@ -115,12 +183,12 @@ UserProfileStack.navigationOptions = ({ navigation }) => {
 
   if (routeName === 'UserProfile') {
     navigationOptions.tabBarIcon = ({ focused }) => (
-      <MaterialCommunityIcons name="account" size={25} color="black" />
+      <MaterialCommunityIcons name="account-outline" size={25} color="white" />
     );
   } else {
     // placeholder for now to ensure when going to other screens that account icon doesn't disappear
     navigationOptions.tabBarIcon = ({ focused }) => (
-      <MaterialCommunityIcons name="account" size={25} color="black" />
+      <MaterialCommunityIcons name="account-outline" size={25} color="white" />
     );
   }
 
@@ -129,23 +197,27 @@ UserProfileStack.navigationOptions = ({ navigation }) => {
 
 /* Bottom tab navigator */
 
-const TabNavigator = createBottomTabNavigator(
+const BottomTabNavigator = createBottomTabNavigator(
   {
     Home: HomeStack,
     Create: CreateStack,
-    Annotate: AnnotateStack,
+    // Annotate: AnnotateStack,
     UserProfile: UserProfileStack,
   },
   {
     tabBarOptions: {
       activeTintColor: 'orange',
       inactiveTintColor: 'gray',
+      style: {
+        backgroundColor: '#1C202C',
+      },
+      showLabel: false,
     },
   }
 );
 
 /* App container */
-const AppContainer = createAppContainer(TabNavigator); // will want to use createSwitchNavigator to reset state from Authentication flow eventually
+const AppContainer = createAppContainer(BottomTabNavigator); // will want to use createSwitchNavigator to reset state from Authentication flow eventually
 
 export default class App extends React.Component {
   render() {

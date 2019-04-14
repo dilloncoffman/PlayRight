@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default class CreateScreen extends Component {
+  static navigationOptions = {
+    // to style Home Screen-specific header
+    title: 'Innovate',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -16,6 +24,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#1C202C',
   },
 });

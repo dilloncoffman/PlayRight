@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default class UserProfileScreen extends Component {
+export default class ArtistProfileScreen extends Component {
+  static navigationOptions = {
+    // to style Tab Screen-specific header
+    title: 'Artist Profile',
+  };
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>User Profile Screen</Text>
+        <Text style={styles.text}>Artist Profile Screen</Text>
       </View>
     );
   }
@@ -17,5 +22,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#2A3141',
+  },
+  text: {
+    color: '#fff',
   },
 });
