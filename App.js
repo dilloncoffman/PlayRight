@@ -1,16 +1,20 @@
 import React from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
+  createSwitchNavigator,
   createBottomTabNavigator,
   createStackNavigator,
   createAppContainer,
 } from 'react-navigation';
+import AuthLoadingScreen from './screens/AuthLoadingScreen';
+import SignInScreen from './screens/SignInScreen';
+import SignUpScreen from './screens/SignUpScreen';
 // import AnnotateScreen from './screens/Annotate';
-import HomeScreen from './screens/Home';
-import CreateScreen from './screens/Create';
-import UserProfileScreen from './screens/UserProfile';
-import TabScreen from './screens/Tab';
-import ArtistProfileScreen from './screens/ArtistProfile';
+import HomeScreen from './screens/HomeScreen';
+import InnovateScreen from './screens/InnovateScreen';
+import UserProfileScreen from './screens/UserProfileScreen';
+import TabScreen from './screens/TabScreen';
+import ArtistProfileScreen from './screens/ArtistProfileScreen';
 
 /* Stack navigators for each screen */
 
@@ -18,6 +22,7 @@ const HomeStack = createStackNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: ({ navigation }) => ({
+      title: 'Home',
       headerLeft: null, // disables back button to screen - might be problem later
       gesturesEnabled: false, // disables user swiping back to previous screen
       headerTitleStyle: {
@@ -27,12 +32,13 @@ const HomeStack = createStackNavigator({
         backgroundColor: '#1C202C',
         borderBottomWidth: 0, // gets rid of hairline border bottom on header
       },
-      headerBackTitle: null, // removes truncated 'Back' text from header when on Tab screen
+      headerBackTitle: null, // removes truncated 'Back' text from header when on any other screen in Home stack
     }),
   },
   Tab: {
     screen: TabScreen,
     navigationOptions: ({ navigation }) => ({
+      title: 'Tab',
       headerTitleStyle: {
         color: '#fff',
       },
@@ -50,6 +56,7 @@ const HomeStack = createStackNavigator({
   ArtistProfile: {
     screen: ArtistProfileScreen,
     navigationOptions: ({ navigation }) => ({
+      title: 'Artist',
       headerTitleStyle: {
         color: '#fff',
       },
@@ -66,10 +73,11 @@ const HomeStack = createStackNavigator({
   },
 });
 
-const CreateStack = createStackNavigator({
-  Create: {
-    screen: CreateScreen,
+const InnovateStack = createStackNavigator({
+  Innovate: {
+    screen: InnovateScreen,
     navigationOptions: ({ navigation }) => ({
+      title: 'Innovate',
       headerLeft: null,
       gesturesEnabled: false,
       headerTitleStyle: {
@@ -97,6 +105,7 @@ const UserProfileStack = createStackNavigator({
   UserProfile: {
     screen: UserProfileScreen,
     navigationOptions: ({ navigation }) => ({
+      title: 'Profile',
       headerLeft: null,
       gesturesEnabled: false,
       headerTitleStyle: {
@@ -132,12 +141,12 @@ HomeStack.navigationOptions = ({ navigation }) => {
   return navigationOptions;
 };
 
-CreateStack.navigationOptions = ({ navigation }) => {
+InnovateStack.navigationOptions = ({ navigation }) => {
   // naming will get confusing when diving deeper into react-nav options, fix this
   const { routeName } = navigation.state.routes[navigation.state.index];
   const navigationOptions = {};
 
-  if (routeName === 'Create') {
+  if (routeName === 'Innovate') {
     navigationOptions.tabBarIcon = ({ focused }) => (
       <MaterialCommunityIcons
         name="plus-circle-outline"
@@ -200,7 +209,7 @@ UserProfileStack.navigationOptions = ({ navigation }) => {
 const BottomTabNavigator = createBottomTabNavigator(
   {
     Home: HomeStack,
-    Create: CreateStack,
+    Innovate: InnovateStack,
     // Annotate: AnnotateStack,
     UserProfile: UserProfileStack,
   },
@@ -216,8 +225,62 @@ const BottomTabNavigator = createBottomTabNavigator(
   }
 );
 
+/* Stack navigator for authentication flow */
+const AuthStack = createStackNavigator({
+  SignIn: {
+    screen: SignInScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerBackTitle: null,
+      headerLeft: null,
+      gesturesEnabled: false,
+      headerTitleStyle: {
+        color: '#fff',
+      },
+      headerStyle: {
+        backgroundColor: '#1C202C',
+        borderBottomWidth: 0, // gets rid of hairline border bottom on header
+      },
+    }),
+  },
+  SignUp: {
+    screen: SignUpScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: '#1C202C',
+        borderBottomWidth: 0, // gets rid of hairline border bottom on header
+      },
+      headerTintColor: '#fff', // color of back arrow
+      headerLeftContainerStyle: {
+        // style for back button container
+        paddingLeft: 10,
+      },
+    }),
+  },
+});
+
+/* Switch navigator for authentication flow */
+
+const SwitchNav = createSwitchNavigator({
+  AuthLoading: {
+    screen: AuthLoadingScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerLeft: null,
+      gesturesEnabled: false,
+      headerTitleStyle: {
+        color: '#1C202C',
+      },
+      headerStyle: {
+        backgroundColor: '#1C202C',
+        borderBottomWidth: 0, // gets rid of hairline border bottom on header
+      },
+    }),
+  },
+  Auth: AuthStack,
+  App: BottomTabNavigator,
+});
+
 /* App container */
-const AppContainer = createAppContainer(BottomTabNavigator); // will want to use createSwitchNavigator to reset state from Authentication flow eventually
+const AppContainer = createAppContainer(SwitchNav); // will want to use createSwitchNavigator to reset state from Authentication flow eventually
 
 export default class App extends React.Component {
   render() {

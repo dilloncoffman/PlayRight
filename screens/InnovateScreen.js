@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default class CreateScreen extends Component {
-  static navigationOptions = {
-    // to style Home Screen-specific header
-    title: 'Innovate',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  };
-
+export default class InnovateScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Create Screen</Text>
+        <Text>Innovate Screen</Text>
       </View>
     );
   }
@@ -24,6 +16,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#1C202C',
+    backgroundColor: '#2A3141',
   },
 });

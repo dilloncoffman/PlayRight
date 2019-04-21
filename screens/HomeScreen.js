@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, Button, View } from 'react-native';
+import { StyleSheet, Text, Button, View, AsyncStorage } from 'react-native';
 
 export default class HomeScreen extends Component {
-  static navigationOptions = {
-    // to style Home Screen-specific header
-    title: 'Home',
+  signOut = async () => {
+    await AsyncStorage.clear(); // clears anything stored in AsyncStorage
+
+    this.props.navigation.navigate('AuthLoading'); // navigate to AuthLoading which will determine if user is signed in or not
   };
 
   render() {
@@ -19,6 +20,7 @@ export default class HomeScreen extends Component {
           title="Artist Profile"
           onPress={() => this.props.navigation.navigate('ArtistProfile')}
         />
+        <Button title="Sign Out" onPress={this.signOut} />
       </View>
     );
   }

@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default class ArtistProfileScreen extends Component {
-  static navigationOptions = {
-    // to style Tab Screen-specific header
-    title: 'Artist Profile',
-  };
-
+export default class TabScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Artist Profile Screen</Text>
+        <Text style={styles.text}>Tab Screen</Text>
       </View>
     );
   }
