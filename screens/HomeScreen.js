@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, Button, View, AsyncStorage } from 'react-native';
+import { Auth } from 'aws-amplify';
 
 export default class HomeScreen extends Component {
   signOut = async () => {
@@ -12,6 +13,9 @@ export default class HomeScreen extends Component {
     return (
       <View style={styles.container}>
         <Text>Home Screen</Text>
+        {/* example of accessing user object returned from successful signIn() */}
+        <Text>Hello {Auth.user.username} </Text>
+
         <Button
           title="Tab"
           onPress={() => this.props.navigation.navigate('Tab')}
