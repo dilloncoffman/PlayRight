@@ -1,3 +1,5 @@
+[![TODO board](https://imdone.io/api/1.0/projects/5cc3d3b32aad3b4fc26a0d49/badge)](https://imdone.io/app#/board/dilloncoffman/PlayRight)
+
 # PlayRight
 PlayRight is a guitar tab app that allows users to create and share tabs of their own. It works with the music streaming services you love to display the tabs most relevant to you.
 
