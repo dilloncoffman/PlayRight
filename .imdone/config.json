@@ -19,10 +19,6 @@
       "name": "HELP"
     },
     {
-      "name": "DONE",
-      "hidden": false
-    },
-    {
       "name": "TODO",
       "hidden": false
     }
