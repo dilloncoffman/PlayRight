@@ -6,6 +6,8 @@ import {
   createStackNavigator,
   createAppContainer,
 } from 'react-navigation';
+import Amplify from 'aws-amplify';
+import config from './aws-exports';
 import AuthLoadingScreen from './screens/AuthLoadingScreen';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
@@ -15,6 +17,9 @@ import InnovateScreen from './screens/InnovateScreen';
 import UserProfileScreen from './screens/UserProfileScreen';
 import TabScreen from './screens/TabScreen';
 import ArtistProfileScreen from './screens/ArtistProfileScreen';
+
+/* Configure AWS Amplify */
+Amplify.configure(config);
 
 /* Stack navigators for each screen */
 
@@ -226,6 +231,7 @@ const BottomTabNavigator = createBottomTabNavigator(
 );
 
 /* Stack navigator for authentication flow */
+
 const AuthStack = createStackNavigator({
   SignIn: {
     screen: SignInScreen,
@@ -280,6 +286,7 @@ const SwitchNav = createSwitchNavigator({
 });
 
 /* App container */
+
 const AppContainer = createAppContainer(SwitchNav); // will want to use createSwitchNavigator to reset state from Authentication flow eventually
 
 export default class App extends React.Component {
