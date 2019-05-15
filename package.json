@@ -19,7 +19,9 @@
     "react-navigation-tabs": "^2.1.1"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.0.0"
+    "babel-preset-expo": "^5.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-handlebarlabs": "^0.0.3"
   },
   "private": true
 }
