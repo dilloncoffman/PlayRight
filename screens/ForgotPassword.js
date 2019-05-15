@@ -37,7 +37,7 @@ class ForgotPasswordScreen extends Component {
     // eslint-disable-next-line react/prop-types
     const { navigate } = this.props.navigation;
     Auth.forgotPasswordSubmit(username, confirmationCode, new_password)
-      .then(data => {
+      .then(() => {
         navigate('SignIn'); // redirect to SignIn
       })
       .catch(err => {
