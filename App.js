@@ -10,6 +10,7 @@ import Amplify from 'aws-amplify';
 import config from './aws-exports';
 import AuthLoadingScreen from './screens/AuthLoadingScreen';
 import SignInScreen from './screens/SignInScreen';
+import ForgotPasswordScreen from './screens/ForgotPassword';
 import SignUpScreen from './screens/SignUpScreen';
 // import AnnotateScreen from './screens/Annotate';
 import HomeScreen from './screens/HomeScreen';
@@ -250,6 +251,20 @@ const AuthStack = createStackNavigator({
   },
   SignUp: {
     screen: SignUpScreen,
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: '#1C202C',
+        borderBottomWidth: 0, // gets rid of hairline border bottom on header
+      },
+      headerTintColor: '#fff', // color of back arrow
+      headerLeftContainerStyle: {
+        // style for back button container
+        paddingLeft: 10,
+      },
+    }),
+  },
+  ForgotPassword: {
+    screen: ForgotPasswordScreen,
     navigationOptions: ({ navigation }) => ({
       headerStyle: {
         backgroundColor: '#1C202C',

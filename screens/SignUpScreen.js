@@ -16,6 +16,7 @@ class SignUpScreen extends Component {
     phone_number: '',
     email: '',
     confirmationCode: '',
+    confirmationSent: false,
   };
 
   onChangeText(key, value) {
@@ -24,7 +25,7 @@ class SignUpScreen extends Component {
     });
   }
 
-  signUp() {
+  signUp = () => {
     Auth.signUp({
       username: this.state.username,
       password: this.state.password,
@@ -34,17 +35,32 @@ class SignUpScreen extends Component {
         phone_number: this.state.phone_number,
       },
     })
-      .then(() => console.log('Successful sign up!'))
+      .then(() => {
+        console.log('Successful sign up!');
+        this.setState({ confirmationSent: true });
+      })
       .catch(error => console.log('Error signing up!: ', error));
   }
 
-  confirmSignUp() {
+  confirmSignUp = () => {
+    const { navigate } = this.props.navigation;
     Auth.confirmSignUp(this.state.username, this.state.confirmationCode)
-      .then(() => console.log('Successful confirmation!'))
+      .then(() => {
+        console.log('Successful confirmation!');
+        navigate('SignIn');
+      })
       .catch(error => console.log('Confirmation error!: ', error));
   }
 
+  static renderConfirmationMessage() {
+    return (
+      <Text style={styles.confirmationText}>Confirmation code sent...</Text>
+    );
+  }
+
   render() {
+    const { confirmationSent } = this.state;
+    
     return (
       <View style={styles.container}>
         <TextInput
@@ -72,7 +88,8 @@ class SignUpScreen extends Component {
           placeholder="Email"
           placeholderTextColor="#FF7F4C"
         />
-        <Button title="Create Account" onPress={this.signUp.bind(this)} />
+        <Button title="Sign Up" onPress={this.signUp} />
+        { confirmationSent && this.constructor.renderConfirmationMessage() }
         <TextInput
           onChangeText={value => this.onChangeText('confirmationCode', value)}
           style={styles.input}
@@ -80,8 +97,8 @@ class SignUpScreen extends Component {
           placeholderTextColor="#FF7F4C"
         />
         <Button
-          title="Confirmation Code"
-          onPress={this.confirmSignUp.bind(this)}
+          title="Confirm Sign Up"
+          onPress={this.confirmSignUp}
         />
       </View>
     );
@@ -101,5 +118,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: '#E7E8E9',
     margin: 10,
+  },
+  text: {
+    color: '#E7E8E9',
+  },
+  confirmationText: {
+    color: 'orange',
+    fontSize: 20,
   },
 });
